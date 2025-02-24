@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
-import { AuthProviders, Genders, OtpTypes, UserRole } from "../../utils/enum/enum.js";
+import {
+  AuthProviders,
+  Genders,
+  OtpTypes,
+  UserRole,
+} from "../../utils/enum/enum.js";
+import { generateHash } from "../../utils/security/hash.security.js";
+import { encrypt } from "../../utils/security/crypto.security.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,6 +37,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: Object.values(Genders),
       required: true,
+      set: (value) => value.toLowerCase(),
     },
     DOB: {
       type: Date,
@@ -90,6 +98,18 @@ const userSchema = new mongoose.Schema(
 
 userSchema.virtual("username").get(function () {
   return `${this.firstName} ${this.lastName}`;
+});
+
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await generateHash({ plaintext: this.password });
+  }
+
+  if (this.isModified("mobileNumber")) {
+    this.mobileNumber = await encrypt({ plaintext: this.mobileNumber });
+  }
+
+  next();
 });
 
 const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

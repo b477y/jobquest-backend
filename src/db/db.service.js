@@ -40,12 +40,12 @@ export const findByIdAndUpdate = async ({
   model = "",
   id = "",
   data = {},
-  options = {},
+  options = { new: true },
   select = "",
   populate = [],
 } = {}) => {
   return await model
-    .findById(id, data, options)
+    .findByIdAndUpdate(id, data, { new: true, ...options })
     .select(select)
     .populate(populate);
 };

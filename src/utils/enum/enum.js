@@ -1,46 +1,46 @@
 export const UserRole = Object.freeze({
-  ADMIN: "Admin",
-  USER: "User",
+  ADMIN: "admin",
+  USER: "user",
 });
 
 export const TokenType = Object.freeze({
-  ACCESS: "Access",
-  REFRESH: "Refresh",
+  ACCESS: "access",
+  REFRESH: "refresh",
 });
 
 export const AuthProviders = Object.freeze({
-  GOOGLE: "Google",
-  SYSTEM: "System",
+  GOOGLE: "google",
+  SYSTEM: "system",
 });
 
 export const Genders = Object.freeze({
-  MALE: "Male",
-  FEMALE: "Female",
+  MALE: "male",
+  FEMALE: "female",
 });
 
 export const OtpTypes = Object.freeze({
-  CONFIRM_EMAIL: "confirmEmail",
-  FORGET_PASSWORD: "forgetPassword",
+  CONFIRM_EMAIL: "confirm-email",
+  FORGET_PASSWORD: "forget-password",
 });
 
 export const JobLocation = Object.freeze({
-  ONSITE: "Onsite",
-  REMOTE: "Remote",
-  HYBRID: "Hybrid",
+  ONSITE: "onsite",
+  REMOTE: "remote",
+  HYBRID: "hybrid",
 });
 
 export const WorkingTime = Object.freeze({
-  PART_TIME: "Part-Time",
-  FULL_TIME: "Full-Time",
+  PART_TIME: "part-time",
+  FULL_TIME: "full-time",
 });
 
 export const SeniorityLevel = Object.freeze({
-  FRESH: "Fresh",
-  JUNIOR: "Junior",
-  MID_LEVEL: "Mid-Level",
-  SENIOR: "Senior",
-  TEAM_LEAD: "Team-Lead",
-  CTO: "CTO",
+  FRESH: "fresh",
+  JUNIOR: "junior",
+  MID_LEVEL: "mid-level",
+  SENIOR: "senior",
+  TEAM_LEAD: "team-lead",
+  CTO: "cto",
 });
 
 export const ApplicationStatus = Object.freeze({
