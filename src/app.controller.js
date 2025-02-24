@@ -5,6 +5,7 @@ import limiter from "./utils/security/limiter.security.js";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
+import connect2db from "./db/connection.js";
 
 const bootstrap = (app, express) => {
   app.use(
@@ -33,6 +34,8 @@ const bootstrap = (app, express) => {
   );
 
   app.use(errorHandlingMiddlware);
+
+  connect2db();
 };
 
 export default bootstrap;
