@@ -1,0 +1,33 @@
+{
+  "name": "jobquest-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Backend API for JobQuest, a job search platform inspired by LinkedIn, built with RESTful APIs, GraphQL, and WebSockets for flexible and real-time job interactions.",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch ."
+  },
+  "keywords": [
+    "jobquest",
+    "job search",
+    "job listings",
+    "job applications",
+    "recruitment",
+    "employment",
+    "career",
+    "LinkedIn alternative",
+    "backend",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "GraphQL",
+    "REST API",
+    "WebSockets",
+    "real-time",
+    "Socket.io",
+    "job marketplace",
+    "API development"
+  ],
+  "author": "Mohammed Saleh (Batty)",
+  "license": "ISC"
+}
