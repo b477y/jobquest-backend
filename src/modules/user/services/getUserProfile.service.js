@@ -12,7 +12,7 @@ const getUserProfile = asyncHandler(async (req, res, next) => {
       _id: userId,
       deletedAt: { $exists: false },
     },
-    select:"username firstName lastName mobileNumber email gender"
+    select: "firstName lastName username mobileNumber email gender",
   });
 
   return successResponse({
