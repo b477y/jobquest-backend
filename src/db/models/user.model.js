@@ -25,7 +25,9 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: (data) => {
+        return data?.provider === AuthProviders.GOOGLE ? false : true;
+      },
     },
     provider: {
       type: String,
@@ -36,12 +38,16 @@ const userSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: Object.values(Genders),
-      required: true,
+      required: (data) => {
+        return data?.provider === AuthProviders.GOOGLE ? false : true;
+      },
       set: (value) => value.toLowerCase(),
     },
     DOB: {
       type: Date,
-      required: true,
+      required: (data) => {
+        return data?.provider === AuthProviders.GOOGLE ? false : true;
+      },
       validate: {
         validator: function (value) {
           const today = new Date();
@@ -55,8 +61,10 @@ const userSchema = new mongoose.Schema(
     },
     mobileNumber: {
       type: String,
-      required: true,
       unique: true,
+      required: (data) => {
+        return data?.provider === AuthProviders.GOOGLE ? false : true;
+      },
     },
     role: {
       type: String,
