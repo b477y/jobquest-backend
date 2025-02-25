@@ -3,7 +3,7 @@ import userModel from "../../../db/models/user.model.js";
 import asyncHandler from "../../../utils/response/error.response.js";
 import successResponse from "../../../utils/response/success.response.js";
 
-const getMyAccount = asyncHandler(async (req, res, next) => {
+const getUserProfile = asyncHandler(async (req, res, next) => {
   const { userId } = req.user;
 
   const user = await dbService.findOne({
@@ -22,4 +22,4 @@ const getMyAccount = asyncHandler(async (req, res, next) => {
     data: user,
   });
 });
-export default getMyAccount;
+export default getUserProfile;
