@@ -9,6 +9,8 @@ import {
   fileValidations,
 } from "../../utils/multer/cloud.multer.js";
 import uploadProfileCover from "./services/uploadCoverPic.service.js";
+import deleteProfilePic from "./services/deleteProfilePic.service.js";
+import deleteCoverPic from "./services/deleteCoverPic.service.js";
 
 const router = new Router();
 
@@ -27,5 +29,7 @@ router.patch(
   uploadCloudFile(fileValidations.image).single("profileCover"),
   uploadProfileCover
 );
+router.delete("/profile/profile-picture", authentication(), deleteProfilePic);
+router.delete("/profile/profile-cover", authentication(), deleteCoverPic);
 
 export default router;
