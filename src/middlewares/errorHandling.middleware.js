@@ -1,4 +1,4 @@
-const errorHandlingMiddlware = (error, req, res, next) => {
+const errorHandlingMiddleware = (error, req, res, next) => {
   if (process.env.MODE === "DEVELOPMENT") {
     return res
       .status(error.cause || 400)
@@ -7,4 +7,4 @@ const errorHandlingMiddlware = (error, req, res, next) => {
   return res.status(error.cause || 400).json({ message: error.message });
 };
 
-export default errorHandlingMiddlware;
+export default errorHandlingMiddleware;

@@ -1,11 +1,11 @@
 import CryptoJS from "crypto-js";
 
 export const encrypt = ({
-  plainText = "",
+  plaintext = "",
   secretKey = process.env.ENCRYPTION_KEY,
 } = {}) => {
-  const cipherText = CryptoJS.AES.encrypt(plainText, secretKey).toString();
-  return cipherText;
+  const encrypted = CryptoJS.AES.encrypt(plaintext, secretKey).toString();
+  return encrypted;
 };
 
 export const decrypt = ({

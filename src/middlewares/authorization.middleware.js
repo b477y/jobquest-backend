@@ -1,4 +1,4 @@
-const authorizationMiddleware = (accessRoles = []) => {
+const authorization = (accessRoles = []) => {
   return asyncHandler(async (req, res, next) => {
     if (!req.user) {
       return next(new Error("Unauthorized access", { cause: 401 }));
@@ -12,4 +12,4 @@ const authorizationMiddleware = (accessRoles = []) => {
   });
 };
 
-export default authorizationMiddleware;
+export default authorization;

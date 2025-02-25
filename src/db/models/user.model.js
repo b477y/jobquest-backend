@@ -6,7 +6,7 @@ import {
   UserRole,
 } from "../../utils/enum/enum.js";
 import { generateHash } from "../../utils/security/hash.security.js";
-import { encrypt } from "../../utils/security/crypto.security.js";
+import { decrypt, encrypt } from "../../utils/security/crypto.security.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -99,7 +99,13 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret.id;
+        return ret;
+      },
+    },
     toObject: { virtuals: true },
   }
 );
@@ -118,6 +124,13 @@ userSchema.pre("save", async function (next) {
   }
 
   next();
+});
+
+userSchema.post("findOne", function (doc) {
+  if (doc && doc.mobileNumber && typeof doc.mobileNumber === "string") {
+    const decryptedNumber = decrypt({ cipherText: doc.mobileNumber });
+    doc.mobileNumber = decryptedNumber;
+  }
 });
 
 const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

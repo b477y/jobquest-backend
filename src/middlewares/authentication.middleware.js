@@ -1,7 +1,8 @@
 import { decodeToken } from "../utils/security/token.security.js";
-import asyncHandler from "./errorHandling.middleware.js";
+import asyncHandler from "../utils/response/error.response.js";
+import { TokenType } from "../utils/enum/enum.js";
 
-const authenticationMiddleware = () => {
+const authentication = () => {
   return asyncHandler(async (req, res, next) => {
     const { authorization } = req.headers;
 
@@ -25,4 +26,4 @@ const authenticationMiddleware = () => {
   });
 };
 
-export default authenticationMiddleware;
+export default authentication;
