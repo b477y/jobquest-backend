@@ -19,7 +19,7 @@ const bootstrap = (app, express) => {
   app.use(morgan("dev"));
   app.use(express.json());
 
-  app.use("/auth", authController);
+  app.use("/api/auth", authController);
 
   app.get("/", (req, res, next) => {
     successResponse({

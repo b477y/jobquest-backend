@@ -10,7 +10,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
 
   const user = await dbService.findOne({
     model: UserModel,
-    filter: { email },
+    filter: { email, deletedAt: { $exists: false } },
   });
 
   if (!user || !user.OTP.length) {

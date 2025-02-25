@@ -2,7 +2,7 @@ import { EventEmitter } from "node:events";
 import UserModel from "../../db/models/user.model.js";
 import sendEmail from "../email/send.email.js";
 import confirmEmailTemplate from "../email/templates/confirmEmail.template.js";
-import forgetPasswordTemplate from "../email/templates/forgetPassword.template.js";
+import forgotPasswordTemplate from "../email/templates/forgotPassword.template.js";
 import generateOTP from "../../utils/email/generateOTP.js";
 import * as dbService from "../../db/db.service.js";
 import { OtpTypes } from "../enum/enum.js";
@@ -51,10 +51,10 @@ emailEvent.on("sendConfirmEmail", async (data) => {
   });
 });
 
-emailEvent.on("forgetPassword", async (data) => {
+emailEvent.on("forgotPassword", async (data) => {
   await sendOTP({
     data,
-    subject: OtpTypes.FORGET_PASSWORD,
-    template: forgetPasswordTemplate,
+    subject: OtpTypes.FORGOT_PASSWORD,
+    template: forgotPasswordTemplate,
   });
 });

@@ -20,7 +20,7 @@ export const Genders = Object.freeze({
 
 export const OtpTypes = Object.freeze({
   CONFIRM_EMAIL: "confirm-email",
-  FORGET_PASSWORD: "forget-password",
+  FORGOT_PASSWORD: "forgot-password",
 });
 
 export const JobLocation = Object.freeze({
