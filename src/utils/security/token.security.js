@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { TokenType, UserRole } from "../enum/enum.js";
-import asyncHandler from "../response/error.response.js";
+import * as dbService from "../../db/db.service.js";
+import UserModel from "../../db/models/user.model.js";
 
 export const generateTokens = async ({
   payload,
@@ -34,58 +35,53 @@ export const verifyToken = ({ token, secretKey } = {}) => {
   return decoded;
 };
 
-export const decodeToken = asyncHandler(
-  async ({ authorization, tokenType, next } = {}) => {
-    if (typeof authorization !== "string") {
-      return next(new Error("Invalid authorization format", { cause: 401 }));
-    }
-
-    const [bearer, token] = authorization.split(" ");
-
-    if (!bearer || !token) {
-      return next(new Error("Invalid authorization format", { cause: 401 }));
-    }
-
-    let accessTokenSK, refreshTokenSK;
-
-    switch (bearer) {
-      case UserRole.ADMIN:
-        accessTokenSK = process.env.ADMIN_ACCESS_TOKEN_SK;
-        refreshTokenSK = process.env.ADMIN_REFRESH_TOKEN_SK;
-        break;
-
-      case "Bearer":
-        accessTokenSK = process.env.USER_ACCESS_TOKEN_SK;
-        refreshTokenSK = process.env.USER_REFRESH_TOKEN_SK;
-        break;
-
-      default:
-        break;
-    }
-
-    const decoded = verifyToken({
-      token,
-      secretKey:
-        tokenType === TokenType.ACCESS ? accessTokenSK : refreshTokenSK,
-    });
-
-    if (!decoded?.userId) {
-      return next(new Error("In-valid token payload", { cause: 401 }));
-    }
-
-    const user = await dbService.findOne({
-      model: UserModel,
-      filter: { _id: decoded.userId, deletedAt: { $exists: false } },
-    });
-
-    if (!user) {
-      return next(new Error("Not registered account", { cause: 404 }));
-    }
-
-    if (user.changeCredentialsTime?.getTime() >= decoded.iat * 1000) {
-      return next(new Error("In-valid credentials", { cause: 400 }));
-    }
-
-    return { user: { userId: user._id, role: user.role } };
+export const decodeToken = async ({ authorization, tokenType } = {}) => {
+  if (typeof authorization !== "string") {
+    throw new Error("Invalid authorization format", { cause: 401 });
   }
-);
+
+  const [bearer, token] = authorization.split(" ");
+
+  if (!bearer || !token) {
+    throw new Error("Invalid authorization format", { cause: 401 });
+  }
+
+  let accessTokenSK, refreshTokenSK;
+
+  switch (bearer) {
+    case UserRole.ADMIN:
+      accessTokenSK = process.env.ADMIN_ACCESS_TOKEN_SK;
+      refreshTokenSK = process.env.ADMIN_REFRESH_TOKEN_SK;
+      break;
+    case "Bearer":
+      accessTokenSK = process.env.USER_ACCESS_TOKEN_SK;
+      refreshTokenSK = process.env.USER_REFRESH_TOKEN_SK;
+      break;
+    default:
+      throw new Error("Invalid token type", { cause: 401 });
+  }
+
+  const decoded = verifyToken({
+    token,
+    secretKey: tokenType === TokenType.ACCESS ? accessTokenSK : refreshTokenSK,
+  });
+
+  if (!decoded?.userId) {
+    throw new Error("Invalid token payload", { cause: 401 });
+  }
+
+  const user = await dbService.findOne({
+    model: UserModel,
+    filter: { _id: decoded.userId, deletedAt: { $exists: false } },
+  });
+
+  if (!user) {
+    throw new Error("Not registered account", { cause: 404 });
+  }
+
+  if (user.changeCredentialsTime?.getTime() >= decoded.iat * 1000) {
+    throw new Error("Invalid credentials", { cause: 400 });
+  }
+
+  return { userId: user._id, role: user.role };
+};

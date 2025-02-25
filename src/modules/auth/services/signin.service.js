@@ -11,11 +11,11 @@ const signIn = asyncHandler(async (req, res, next) => {
 
   const user = await dbService.findOne({
     model: UserModel,
-    filter: { email },
+    filter: { email, deletedAt: { $exists: false } },
   });
 
   if (!user) {
-    return next(new Error("User not found", { cause: 400 }));
+    return next(new Error("User not found", { cause: 404 }));
   }
 
   const isMatch = await compareHash({

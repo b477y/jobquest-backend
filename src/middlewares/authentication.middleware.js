@@ -14,7 +14,6 @@ const authenticationMiddleware = () => {
     const user = await decodeToken({
       authorization,
       tokenType: TokenType.ACCESS,
-      next,
     });
 
     if (!user) {

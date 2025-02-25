@@ -7,6 +7,7 @@ import signIn from "./services/signin.service.js";
 import signInWithGoogle from "./services/googleOAuth.service.js";
 import forgotPassword from "./services/forgotPassword.service.js";
 import resetPassword from "./services/resetPassword.service.js";
+import refreshToken from "./services/refreshToken.service.js";
 
 const router = new Router();
 
@@ -16,5 +17,6 @@ router.post("/signin", signIn);
 router.post("/signin-with-google", signInWithGoogle);
 router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password", resetPassword);
+router.get("/refresh-token", refreshToken);
 
 export default router;
