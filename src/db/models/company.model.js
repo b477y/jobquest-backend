@@ -1,22 +1,21 @@
 import mongoose from "mongoose";
+import JobModel from "./job.model.js";
 
 const companySchema = new mongoose.Schema(
   {
     companyName: {
       type: String,
       unique: true,
+      required: true,
     },
     description: {
       type: String,
-      required: true,
     },
     industry: {
       type: String,
-      required: true,
     },
     address: {
       type: String,
-      required: true,
     },
     numberOfEmployees: {
       type: String,
@@ -30,7 +29,6 @@ const companySchema = new mongoose.Schema(
         "501-1000",
         "1001+",
       ],
-      required: true,
     },
     companyEmail: {
       type: String,
@@ -54,6 +52,12 @@ const companySchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+companySchema.virtual("jobs", {
+  ref: "Job",
+  localField: "_id",
+  foreignField: "companyId",
+});
 
 const CompanyModel =
   mongoose.models.Company || mongoose.model("Company", companySchema);

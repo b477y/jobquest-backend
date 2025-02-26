@@ -1,6 +1,6 @@
 import asyncHandler from "./utils/response/error.response.js";
 import successResponse from "./utils/response/success.response.js";
-import errorHandlingMiddleware  from "./middlewares/errorHandling.middleware.js";
+import errorHandlingMiddleware from "./middlewares/errorHandling.middleware.js";
 import limiter from "./utils/security/limiter.security.js";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -8,6 +8,7 @@ import cors from "cors";
 import connect2db from "./db/connection.js";
 import authController from "./modules/auth/auth.controller.js";
 import userController from "./modules/user/user.controller.js";
+import companyController from "./modules/company/company.controller.js";
 
 const bootstrap = (app, express) => {
   app.use(
@@ -22,6 +23,7 @@ const bootstrap = (app, express) => {
 
   app.use("/api/auth", authController);
   app.use("/api/user", userController);
+  app.use("/api/companies", companyController);
 
   app.get("/", (req, res, next) => {
     successResponse({
