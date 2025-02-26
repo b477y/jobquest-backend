@@ -9,6 +9,7 @@ import connect2db from "./db/connection.js";
 import authController from "./modules/auth/auth.controller.js";
 import userController from "./modules/user/user.controller.js";
 import companyController from "./modules/company/company.controller.js";
+import jobController from "./modules/job/job.controller.js";
 
 const bootstrap = (app, express) => {
   app.use(
@@ -24,6 +25,7 @@ const bootstrap = (app, express) => {
   app.use("/api/auth", authController);
   app.use("/api/user", userController);
   app.use("/api/companies", companyController);
+  app.use("/api/jobs", jobController);
 
   app.get("/", (req, res, next) => {
     successResponse({

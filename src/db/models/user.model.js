@@ -140,11 +140,19 @@ userSchema.pre("findOneAndUpdate", async function (next) {
   next();
 });
 
-userSchema.post("findOne", function (doc) {
+userSchema.post("findOne", async function (doc) {
   if (doc && doc.mobileNumber && typeof doc.mobileNumber === "string") {
-    const decryptedNumber = decrypt({ cipherText: doc.mobileNumber });
+    const decryptedNumber = await decrypt({ cipherText: doc.mobileNumber });
     doc.mobileNumber = decryptedNumber;
   }
+});
+
+userSchema.post("find", async function (docs) {
+  docs.forEach(async (doc) => {
+    if (doc.mobileNumber) {
+      doc.mobileNumber = await decrypt({ cipherText: doc.mobileNumber });
+    }
+  });
 });
 
 const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

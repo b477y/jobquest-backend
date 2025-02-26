@@ -13,27 +13,36 @@ import deleteCompanyLogo from "./services/deleteCompanyLogo.service.js";
 import deleteCompanyCover from "./services/deleteCompanyCoverPic.service.js";
 import getCompanyWithJobs from "./services/getCompanyWithJobs.service.js";
 import searchCompany from "./services/searchCompany.service.js";
+import attachHrToCompany from "./services/attachHrToCompany.service.js";
+import jobController from "../job/job.controller.js";
 
 const router = new Router();
 
+router.use("/:companyId/jobs", jobController);
+
 router.post("/", authentication(), addCompany);
 router.patch("/:companyId", authentication(), updateCompany);
+router.patch("/:companyId/attach-hr", authentication(), attachHrToCompany);
 router.delete("/:companyId", authentication(), softDeleteCompany);
 router.get("/:companyId/jobs", getCompanyWithJobs);
 router.get("/", searchCompany);
+
 router.post(
   "/:companyId/logo",
   authentication(),
   uploadCloudFile(fileValidations.image).single("companyLogo"),
   uploadCompanyLogo
 );
+
 router.post(
   "/:companyId/cover",
   authentication(),
   uploadCloudFile(fileValidations.image).single("companyCover"),
   uploadCompanyCover
 );
+
 router.delete("/:companyId/logo", authentication(), deleteCompanyLogo);
+
 router.delete("/:companyId/cover", authentication(), deleteCompanyCover);
 
 export default router;

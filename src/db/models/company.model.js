@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import JobModel from "./job.model.js";
 
 const companySchema = new mongoose.Schema(
   {

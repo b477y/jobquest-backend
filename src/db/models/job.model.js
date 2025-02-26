@@ -15,16 +15,19 @@ const jobSchema = new mongoose.Schema(
       type: String,
       enum: Object.values(JobLocation),
       required: true,
+      set: (value) => value.toLowerCase(),
     },
     workingTime: {
       type: String,
       enum: Object.values(WorkingTime),
       required: true,
+      set: (value) => value.toLowerCase(),
     },
     seniorityLevel: {
       type: String,
       enum: Object.values(SeniorityLevel),
       required: true,
+      set: (value) => value.toLowerCase(),
     },
     jobDescription: {
       type: String,
@@ -41,8 +44,9 @@ const jobSchema = new mongoose.Schema(
     softSkills: {
       type: [String],
       required: true,
+      set: (skills) => skills.map((skill) => skill.toLowerCase()),
       validate: {
-        validator: (skills) => skills.length > 0,
+        validator: (skills) => Array.isArray(skills) && skills.length > 0,
         message: "At least one soft skill is required",
       },
     },

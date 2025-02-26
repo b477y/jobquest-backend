@@ -33,6 +33,12 @@ const applicationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+applicationSchema.virtual("user", {
+  ref: "User",
+  localField: "userId",
+  foreignField: "_id",
+});
+
 const ApplicationModel =
   mongoose.models.Application ||
   mongoose.model("Application", applicationSchema);

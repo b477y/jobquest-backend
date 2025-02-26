@@ -6,16 +6,18 @@ export const find = async ({
   model = "",
   filter = {},
   select = "",
-  skip = "",
+  skip = 0,
   limit = 1000,
   populate = [],
+  sort,
 } = {}) => {
   return await model
     .find(filter)
     .populate(populate)
     .select(select)
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .sort(sort);
 };
 
 export const findOne = async ({
