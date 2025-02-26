@@ -11,6 +11,8 @@ import {
 import uploadProfileCover from "./services/uploadCoverPic.service.js";
 import deleteProfilePic from "./services/deleteProfilePic.service.js";
 import deleteCoverPic from "./services/deleteCoverPic.service.js";
+import updateAccount from "./services/updateAccount.service.js";
+import updatePassword from "./services/updatePassword.service.js";
 
 const router = new Router();
 
@@ -31,5 +33,7 @@ router.patch(
 );
 router.delete("/profile/profile-picture", authentication(), deleteProfilePic);
 router.delete("/profile/profile-cover", authentication(), deleteCoverPic);
+router.patch("/profile", authentication(), updateAccount);
+router.patch("/profile/update-password", authentication(), updatePassword);
 
 export default router;

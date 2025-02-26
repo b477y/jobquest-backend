@@ -126,6 +126,20 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate();
+
+  if (update.mobileNumber) {
+    update.mobileNumber = await encrypt({ plaintext: update.mobileNumber });
+  }
+
+  if (update.password) {
+    update.password = await generateHash({ plaintext: update.password });
+  }
+
+  next();
+});
+
 userSchema.post("findOne", function (doc) {
   if (doc && doc.mobileNumber && typeof doc.mobileNumber === "string") {
     const decryptedNumber = decrypt({ cipherText: doc.mobileNumber });
