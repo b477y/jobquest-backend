@@ -15,6 +15,8 @@ import getCompanyWithJobs from "./services/getCompanyWithJobs.service.js";
 import searchCompany from "./services/searchCompany.service.js";
 import attachHrToCompany from "./services/attachHrToCompany.service.js";
 import jobController from "../job/job.controller.js";
+import companyBan from "./services/companyBan.service.js";
+import companyApprove from "./services/companyApprove.service.js";
 
 const router = new Router();
 
@@ -44,5 +46,11 @@ router.post(
 router.delete("/:companyId/logo", authentication(), deleteCompanyLogo);
 
 router.delete("/:companyId/cover", authentication(), deleteCompanyCover);
+
+// /users/:userId/ban?action=ban
+router.patch("/:companyId/ban", companyBan);
+
+// POST /companies/:companyId/approve
+router.patch("/:companyId/approve", companyApprove);
 
 export default router;

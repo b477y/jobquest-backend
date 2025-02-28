@@ -13,6 +13,7 @@ import deleteProfilePic from "./services/deleteProfilePic.service.js";
 import deleteCoverPic from "./services/deleteCoverPic.service.js";
 import updateAccount from "./services/updateAccount.service.js";
 import updatePassword from "./services/updatePassword.service.js";
+import userBan from "./services/userBan.service.js";
 
 const router = new Router();
 
@@ -35,5 +36,8 @@ router.delete("/profile/profile-picture", authentication(), deleteProfilePic);
 router.delete("/profile/profile-cover", authentication(), deleteCoverPic);
 router.patch("/profile", authentication(), updateAccount);
 router.patch("/profile/update-password", authentication(), updatePassword);
+
+// /users/:userId/ban?action=ban
+router.patch("/:userId/ban", userBan);
 
 export default router;

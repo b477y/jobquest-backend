@@ -29,6 +29,14 @@ const addJob = asyncHandler(async (req, res, next) => {
     },
   });
 
+  if (!company.approvedByAdmin) {
+    return next(
+      new Error("Adding company request are not approved from the admin yet", {
+        cause: 400,
+      })
+    );
+  }
+
   if (!company) {
     return next(new Error("Company not found", { cause: 404 }));
   }

@@ -50,3 +50,8 @@ export const ApplicationStatus = Object.freeze({
   IN_CONSIDERATION: "in consideration",
   REJECTED: "rejected",
 });
+
+export const BanActions = Object.freeze({
+  BAN: "ban",
+  UNBAN: "unban",
+});

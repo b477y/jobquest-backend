@@ -10,6 +10,7 @@ import authController from "./modules/auth/auth.controller.js";
 import userController from "./modules/user/user.controller.js";
 import companyController from "./modules/company/company.controller.js";
 import jobController from "./modules/job/job.controller.js";
+import { createHandler } from "graphql-http/lib/use/express";
 
 const bootstrap = (app, express) => {
   app.use(
