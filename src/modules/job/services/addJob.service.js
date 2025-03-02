@@ -7,15 +7,6 @@ import successResponse from "../../../utils/response/success.response.js";
 const addJob = asyncHandler(async (req, res, next) => {
   const { userId } = req.user;
   const { companyId } = req.params;
-  const {
-    jobTitle,
-    jobLocation,
-    workingTime,
-    seniorityLevel,
-    jobDescription,
-    technicalSkills,
-    softSkills,
-  } = req.body;
 
   if (!companyId || !jobTitle || !jobDescription) {
     return next(new Error("Missing required fields", { cause: 400 }));
@@ -57,17 +48,7 @@ const addJob = asyncHandler(async (req, res, next) => {
 
   const newJob = await dbService.create({
     model: JobModel,
-    data: {
-      addedBy: userId,
-      companyId,
-      jobTitle,
-      jobDescription,
-      jobLocation,
-      seniorityLevel,
-      workingTime,
-      technicalSkills,
-      softSkills,
-    },
+    data: { ...req.body },
   });
 
   return successResponse({

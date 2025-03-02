@@ -1,3 +1,5 @@
+import asyncHandler from "../utils/response/error.response.js";
+
 const authorization = (accessRoles = []) => {
   return asyncHandler(async (req, res, next) => {
     if (!req.user) {

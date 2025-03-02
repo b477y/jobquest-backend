@@ -27,7 +27,7 @@ const bootstrap = (app, express) => {
   app.use("/graphql", createHandler({ schema }));
 
   app.use("/api/auth", authController);
-  app.use("/api/user", userController);
+  app.use("/api/users", userController);
   app.use("/api/companies", companyController);
   app.use("/api/jobs", jobController);
 

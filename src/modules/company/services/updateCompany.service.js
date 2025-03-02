@@ -6,6 +6,13 @@ import CompanyModel from "../../../db/models/company.model.js";
 const updateCompany = asyncHandler(async (req, res, next) => {
   const { userId } = req.user;
   const { companyId } = req.params;
+  const { legalAttachment, ...updateData } = req.body;
+
+  if (legalAttachment !== undefined) {
+    return next(
+      new Error("You are not allowed to update legalAttachment", { cause: 403 })
+    );
+  }
 
   const company = await dbService.findOneAndUpdate({
     model: CompanyModel,
@@ -14,8 +21,12 @@ const updateCompany = asyncHandler(async (req, res, next) => {
       deletedAt: { $exists: false },
       createdBy: userId,
     },
-    data: { ...req.body },
+    data: { updateData },
   });
+
+  if (!company) {
+    return next(new Error("Company not found or unauthorized", { cause: 404 }));
+  }
 
   return successResponse({
     res,

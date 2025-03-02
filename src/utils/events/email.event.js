@@ -31,16 +31,6 @@ export const sendOTP = async ({ data, subject, template } = {}) => {
     },
   });
 
-  setTimeout(async () => {
-    await dbService.updateOne({
-      model: UserModel,
-      filter: { email },
-      data: {
-        $pull: { OTP: { expiresIn: { $lte: new Date() } } },
-      },
-    });
-  }, OTP_EXPIRATION_TIME);
-
   const html = template({ OTP });
   await sendEmail({ to: email, subject, html });
 };

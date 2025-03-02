@@ -49,7 +49,7 @@ export const decodeToken = async ({ authorization, tokenType } = {}) => {
   let accessTokenSK, refreshTokenSK;
 
   switch (bearer) {
-    case UserRole.ADMIN:
+    case "Admin":
       accessTokenSK = process.env.ADMIN_ACCESS_TOKEN_SK;
       refreshTokenSK = process.env.ADMIN_REFRESH_TOKEN_SK;
       break;

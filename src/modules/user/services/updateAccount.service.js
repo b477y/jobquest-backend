@@ -5,7 +5,6 @@ import successResponse from "../../../utils/response/success.response.js";
 
 const updateAccount = asyncHandler(async (req, res, next) => {
   const { userId } = req.user;
-  //   const { firstName, lastName, mobileNumber, DOB, gender } = req.body;
 
   await dbService.findByIdAndUpdate({
     model: UserModel,

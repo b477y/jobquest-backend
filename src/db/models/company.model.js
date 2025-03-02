@@ -34,16 +34,16 @@ const companySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    createdBy: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-    },
     logo: { secure_url: String, public_id: String },
     coverPic: { secure_url: String, public_id: String },
     HRs: [{ type: mongoose.Types.ObjectId, ref: "User" }],
     bannedAt: Date,
     deletedAt: Date,
     legalAttachment: { secure_url: String, public_id: String },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
     approvedByAdmin: {
       type: Boolean,
       default: false,

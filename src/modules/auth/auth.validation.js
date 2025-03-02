@@ -12,3 +12,39 @@ export const signUp = joi
     DOB: generalFields.DOB.required(),
   })
   .required();
+
+export const confirmEmail = joi
+  .object({
+    email: generalFields.email.required(),
+    OTP: generalFields.OTP.required(),
+  })
+  .required();
+
+export const signIn = joi
+  .object({
+    email: generalFields.email.required(),
+    password: generalFields.password.required(),
+  })
+  .required();
+
+export const authenticateWithGoogle = joi
+  .object({
+    idToken: generalFields.idToken.required(),
+  })
+  .required();
+
+export const forgotPassword = joi
+  .object({
+    email: generalFields.email.required(),
+  })
+  .required();
+
+export const resetPassword = joi
+  .object()
+  .keys({
+    email: generalFields.email.required(),
+    OTP: generalFields.OTP.required(),
+    password: generalFields.password.required(),
+    confirmationPassword: generalFields.confirmationPassword.required(),
+  })
+  .required();

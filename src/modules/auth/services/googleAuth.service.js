@@ -8,7 +8,7 @@ import { generateTokens } from "../../../utils/security/token.security.js";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-const signInWithGoogle = asyncHandler(async (req, res, next) => {
+const authenticateWithGoogle = asyncHandler(async (req, res, next) => {
   const { idToken } = req.body;
 
   if (!idToken) {
@@ -76,4 +76,4 @@ const signInWithGoogle = asyncHandler(async (req, res, next) => {
   });
 });
 
-export default signInWithGoogle;
+export default authenticateWithGoogle;

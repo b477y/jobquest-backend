@@ -12,7 +12,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
     model: UserModel,
     filter: { email, deletedAt: { $exists: false } },
   });
-
+  
   if (!user || !user.OTP.length) {
     return next(new Error("Invalid OTP or user not found", 400));
   }

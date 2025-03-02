@@ -17,10 +17,6 @@ const updateJob = asyncHandler(async (req, res, next) => {
     softSkills,
   } = req.body;
 
-  if (!companyId || !jobTitle || !jobId || !jobDescription) {
-    return next(new Error("Missing required fields", { cause: 400 }));
-  }
-
   const company = await dbService.findOne({
     model: CompanyModel,
     filter: {
