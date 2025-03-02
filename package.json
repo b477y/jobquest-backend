@@ -5,7 +5,11 @@
   "description": "Backend API for JobQuest, a job search platform inspired by LinkedIn, built with RESTful APIs, GraphQL, and WebSockets for flexible and real-time job interactions.",
   "type": "module",
   "scripts": {
-    "dev": "node --watch ."
+    "start": "node --env-file=.env.dev .",
+    "dev": "nodemon --env-file=.env.dev ."
+  },
+  "engines": {
+    "node": "20.15.0"
   },
   "keywords": [
     "jobquest",
