@@ -23,6 +23,7 @@ export const updateAccount = joi
     lastName: generalFields.lastName,
     mobileNumber: generalFields.mobileNumber,
     gender: generalFields.gender,
+    DOB: generalFields.DOB,
   })
   .required();
 
@@ -41,13 +42,6 @@ export const updatePassword = joi
     oldPassword: generalFields.password.required(),
     password: generalFields.password.invalid(joi.ref("oldPassword")).required(),
     confirmationPassword: generalFields.confirmationPassword.required(),
-  })
-  .required();
-
-export const image = joi
-  .object()
-  .keys({
-    image: generalFields.image.required(),
   })
   .required();
 

@@ -21,7 +21,7 @@ const updateCompany = asyncHandler(async (req, res, next) => {
       deletedAt: { $exists: false },
       createdBy: userId,
     },
-    data: { updateData },
+    data: { ...updateData },
   });
 
   if (!company) {

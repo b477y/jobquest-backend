@@ -11,8 +11,8 @@ const addCompany = asyncHandler(async (req, res, next) => {
   const company = await dbService.findOne({
     model: CompanyModel,
     filter: {
-      companyName,
-      companyEmail,
+      companyName: companyData.companyName,
+      companyEmail: companyData.companyEmail,
       deletedAt: { $exists: false },
     },
   });
@@ -29,7 +29,7 @@ const addCompany = asyncHandler(async (req, res, next) => {
 
   const { secure_url, public_id } = await cloud.uploader.upload(req.file.path, {
     folder: `${process.env.APP_NAME}/companies/legal_documents`,
-    public_id: `legal_attachment_${companyEmail}`,
+    public_id: `legal_attachment_${companyData.companyEmail}`,
     format: "pdf",
   });
 

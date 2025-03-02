@@ -34,7 +34,6 @@ router.delete("/soft-delete", authentication(), softDelete);
 
 router.patch(
   "/profile/upload-profile-picture",
-  validation(validators.image),
   authentication(),
   uploadCloudFile(fileValidations.image).single("profilePic"),
   uploadProfilePic
@@ -42,7 +41,6 @@ router.patch(
 
 router.patch(
   "/profile/upload-profile-cover",
-  validation(validators.image),
   authentication(),
   uploadCloudFile(fileValidations.image).single("profileCover"),
   uploadProfileCover

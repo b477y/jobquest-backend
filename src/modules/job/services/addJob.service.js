@@ -8,10 +8,6 @@ const addJob = asyncHandler(async (req, res, next) => {
   const { userId } = req.user;
   const { companyId } = req.params;
 
-  if (!companyId || !jobTitle || !jobDescription) {
-    return next(new Error("Missing required fields", { cause: 400 }));
-  }
-
   const company = await dbService.findOne({
     model: CompanyModel,
     filter: {
@@ -48,7 +44,7 @@ const addJob = asyncHandler(async (req, res, next) => {
 
   const newJob = await dbService.create({
     model: JobModel,
-    data: { ...req.body },
+    data: { companyId, addedBy: userId, ...req.body },
   });
 
   return successResponse({

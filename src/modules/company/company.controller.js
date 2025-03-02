@@ -21,14 +21,17 @@ import authorization from "../../middlewares/authorization.middleware.js";
 import { endpoint } from "./company.authorization.js";
 import { validation } from "../../middlewares/validation.middleware.js";
 import * as validators from "./company.validation.js";
+import { UserRole } from "../../utils/enum/enum.js";
 
 const router = new Router();
+
+router.get("/:companyId/jobs", getCompanyWithJobs);
+
 
 router.use("/:companyId/jobs", jobController);
 
 router.post(
   "/",
-  validation(validators.addCompany),
   authentication(),
   uploadCloudFile(fileValidations.document).single("legalAttachment"),
   addCompany
@@ -38,6 +41,7 @@ router.patch(
   "/:companyId",
   validation(validators.updateCompany),
   authentication(),
+  authorization(endpoint.dashboard),
   updateCompany
 );
 
@@ -55,17 +59,11 @@ router.delete(
   softDeleteCompany
 );
 
-router.get(
-  "/:companyId/jobs",
-  validation(validators.getCompanyWithJobs),
-  getCompanyWithJobs
-);
 
 router.get("/", validation(validators.searchCompanyByName), searchCompany);
 
 router.post(
   "/:companyId/logo",
-  validation(validators.uploadCompanyLogo),
   authentication(),
   uploadCloudFile(fileValidations.image).single("companyLogo"),
   uploadCompanyLogo
@@ -73,7 +71,6 @@ router.post(
 
 router.post(
   "/:companyId/cover",
-  validation(validators.uploadCompanyCover),
   authentication(),
   uploadCloudFile(fileValidations.image).single("companyCover"),
   uploadCompanyCover

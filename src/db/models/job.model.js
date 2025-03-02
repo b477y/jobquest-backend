@@ -53,7 +53,6 @@ const jobSchema = new mongoose.Schema(
     addedBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",
-      required: true,
     },
     updatedBy: {
       type: mongoose.Types.ObjectId,

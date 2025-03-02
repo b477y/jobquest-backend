@@ -6,7 +6,6 @@ export const addCompany = joi
   .keys({
     companyName: generalFields.companyName.required(),
     companyEmail: generalFields.email.required(),
-    legalAttachment: generalFields.legalAttachment.required(),
     description: generalFields.description,
     industry: generalFields.industry,
     address: generalFields.address,
@@ -15,7 +14,7 @@ export const addCompany = joi
     HRs: generalFields.id,
     numberOfEmployees: generalFields.numberOfEmployees,
   })
-  .required();
+  .unknown(true);
 
 export const updateCompany = joi
   .object()
@@ -42,13 +41,6 @@ export const attachHrToCompany = joi
   .required();
 
 export const softDeleteCompany = joi
-  .object()
-  .keys({
-    companyId: generalFields.id.required(),
-  })
-  .required();
-
-export const getCompanyWithJobs = joi
   .object()
   .keys({
     companyId: generalFields.id.required(),

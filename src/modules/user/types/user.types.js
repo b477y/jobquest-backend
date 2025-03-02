@@ -13,7 +13,7 @@ export const oneUserType = new GraphQLObjectType({
     _id: { type: GraphQLID },
     username: { type: GraphQLString },
     email: { type: GraphQLString },
-    phoneNumber: { type: GraphQLString },
+    mobileNumber: { type: GraphQLString },
     address: { type: GraphQLString },
     DOB: { type: GraphQLString },
     image: { type: imageType },

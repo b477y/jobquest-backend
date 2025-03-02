@@ -5,6 +5,7 @@ import { emailEvent } from "../../../utils/events/email.event.js";
 import successResponse from "../../../utils/response/success.response.js";
 
 const signUp = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
   const user = await dbService.findOne({
     model: UserModel,
     filter: { email, deletedAt: { $exists: false } },
